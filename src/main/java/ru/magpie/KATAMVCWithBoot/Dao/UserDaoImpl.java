@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.magpie.KATAMVCWithBoot.model.User;
 
 
-
 import java.util.List;
 
 
@@ -31,11 +30,13 @@ public class UserDaoImpl implements UserDao {
     public User readUser(long id) {
         return entityManager.find(User.class, id);
     }
+
     @Transactional
     @Override
     public List<User> listUsers() {
         return entityManager.createQuery("from User", User.class).getResultList();
     }
+
     @Transactional
     @Override
     public void removeUserById(long id) {
@@ -46,15 +47,14 @@ public class UserDaoImpl implements UserDao {
         entityManager.remove(user);
         entityManager.flush();
     }
+
     @Transactional
     @Override
-    public void updateUser(User userinfo,long id) {
-      User old =  entityManager.find(User.class, id);
-      old.setLastName(userinfo.getLastName());
-      old.setFirstName(userinfo.getFirstName());
-      old.setEmail(userinfo.getEmail());
-      entityManager.flush();
+    public void updateUser(User userinfo) {
+        entityManager.merge(userinfo);
+        entityManager.flush();
     }
+
     @Transactional
     @Override
     public void initialAddUser() {

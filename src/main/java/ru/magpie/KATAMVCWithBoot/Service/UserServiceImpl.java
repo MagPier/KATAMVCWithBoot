@@ -1,6 +1,7 @@
 package ru.magpie.KATAMVCWithBoot.Service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.magpie.KATAMVCWithBoot.Dao.UserDao;
 import ru.magpie.KATAMVCWithBoot.model.User;
 
@@ -15,28 +16,32 @@ public class UserServiceImpl implements UserService {
         this.userDao = userDao;
     }
 
-
+    @Transactional
     @Override
     public void add(User user) {
         userDao.add(user);
     }
-
 
     @Override
     public List<User> listUsers() {
         return userDao.listUsers();
     }
 
-
+    @Transactional
     @Override
     public void removeUserById(long id) {
         userDao.removeUserById(id);
 
     }
 
+    @Transactional
     @Override
     public void updateUser(User userinfo, long id) {
-        userDao.updateUser(userinfo,id);
+        User old = userDao.readUser(id);
+        old.setLastName(userinfo.getLastName());
+        old.setFirstName(userinfo.getFirstName());
+        old.setEmail(userinfo.getEmail());
+        userDao.updateUser(old);
     }
 
     @Override
@@ -44,6 +49,7 @@ public class UserServiceImpl implements UserService {
         return userDao.readUser(id);
     }
 
+    @Transactional
     @Override
     public void initialAddUser() {
         userDao.initialAddUser();

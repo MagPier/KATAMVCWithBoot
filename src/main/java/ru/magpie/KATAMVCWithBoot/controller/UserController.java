@@ -27,7 +27,7 @@ public class UserController {
         return "list";
     }
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public String showUserById(@RequestParam("id") long id, ModelMap model) {
         model.addAttribute("user", userService.readUser(id));
         return "showById";

@@ -55,13 +55,4 @@ public class UserDaoImpl implements UserDao {
         entityManager.flush();
     }
 
-    @Transactional
-    @Override
-    public void initialAddUser() {
-
-        add(new User("Ivan", "Ivanov", "ivan@internet.ru"));
-        add(new User("Petr", "Petrov", "petr@internet.ru"));
-        add(new User("Semen", "Semenov", "semen@internet.ru"));
-        add(new User("Sidor", "Sidorov", "sidor@internet.ru"));
-    }
 }

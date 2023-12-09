@@ -15,7 +15,5 @@ public interface UserService {
 
     void updateUser(User userinfo, long id);
 
-    void initialAddUser();
-
     User readUser(long id);
 }

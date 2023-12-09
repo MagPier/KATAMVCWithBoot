@@ -49,10 +49,5 @@ public class UserServiceImpl implements UserService {
         return userDao.readUser(id);
     }
 
-    @Transactional
-    @Override
-    public void initialAddUser() {
-        userDao.initialAddUser();
-    }
 }
 
